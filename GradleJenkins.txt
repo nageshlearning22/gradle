@@ -1,0 +1,22 @@
+cd Gradle
+gradle clean
+gradle assemble
+touch Gradle-parent/Dockerfile
+touch Gradle-child/Dockerfile
+ls
+
+
+
+cd Gradle/Gradle-parent/
+rm Dockerfile
+touch Dockerfile
+echo "FROM tomcat:9 \n RUN cp -R /usr/local/tomcat/webapps.dist/. /usr/local/tomcat/webapps/ \n EXPOSE 8080 \n COPY build/libs/*.war /usr/local/tomcat/webapps/">Dockerfile
+docker rmi parentimage
+docker build -t parentimage .
+
+cd Gradle/Gradle-child/
+rm Dockerfile
+touch Dockerfile
+echo "FROM tomcat:9 \n RUN cp -R /usr/local/tomcat/webapps.dist/. /usr/local/tomcat/webapps/ \n EXPOSE 8080 \n COPY build/libs/*.war /usr/local/tomcat/webapps/">Dockerfile
+docker rmi childimage
+docker build -t childimage .
