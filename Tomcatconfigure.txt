@@ -1,0 +1,22 @@
+1) go to webapps
+host-manager  manager
+Inside both of these in  META-INF in context.xml comment 
+
+  <!--  <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+  allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />  -->
+
+
+2) Go to conf
+tomcat-users.xml
+
+Add this
+
+ <role rolename="manager-gui"/>
+  <role rolename="manager-script"/>
+  <role rolename="manager-jmx"/>
+   <role rolename="manager-status"/>
+   <user username="admin" password="password" roles="manager-gui,manager-script,manager-jmx,manager-status"/>
+
+3) Restart tomcat from bin
+shutdown.sh
+startup.sh
